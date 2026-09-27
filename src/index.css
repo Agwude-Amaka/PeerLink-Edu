@@ -1,0 +1,579 @@
+@import "tailwindcss";
+
+/* =========================================================
+   PEERLINK EDU — AMAKA STANDARD
+   Global Design Foundation
+   ========================================================= */
+
+:root {
+  color-scheme: light;
+}
+
+html {
+  min-height: 100%;
+  background: #f8f9fc;
+}
+
+html.dark {
+  color-scheme: dark;
+  background: #0f172a;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  background: #f8f9fc;
+  color: #0f172a;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  transition:
+    background-color 200ms ease,
+    color 200ms ease;
+}
+
+html.dark body {
+  background: #0f172a;
+  color: #f1f5f9;
+}
+
+/* =========================================================
+   ROOT
+   ========================================================= */
+
+#root {
+  min-height: 100vh;
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Prevent accidental horizontal scrolling */
+
+html,
+body,
+#root {
+  overflow-x: hidden;
+}
+
+/* =========================================================
+   DARK MODE — SURFACES
+   ========================================================= */
+
+html.dark .bg-white {
+  background-color: #1e293b !important;
+}
+
+html.dark .bg-\[\#f8f9fc\] {
+  background-color: #0f172a !important;
+}
+
+html.dark .bg-slate-50 {
+  background-color: #172033 !important;
+}
+
+html.dark .bg-slate-100 {
+  background-color: #243044 !important;
+}
+
+html.dark .bg-slate-50 {
+  background-color: #172033 !important;
+}
+
+html.dark .bg-slate-100 {
+  background-color: #243044 !important;
+}
+
+html.dark .bg-white {
+  background-color: #1e293b !important;
+}
+
+html.dark .border-slate-200 {
+  border-color: #334155 !important;
+}
+
+html.dark .border-slate-100 {
+  border-color: #263449 !important;
+}
+
+/* =========================================================
+   DARK MODE — BORDERS
+   ========================================================= */
+
+html.dark .border-slate-100 {
+  border-color: #263449 !important;
+}
+
+html.dark .border-slate-200 {
+  border-color: #334155 !important;
+}
+
+/* =========================================================
+   DARK MODE — TEXT
+   ========================================================= */
+
+html.dark .text-slate-950 {
+  color: #f8fafc !important;
+}
+
+html.dark .text-slate-900 {
+  color: #f8fafc !important;
+}
+
+html.dark .text-slate-800 {
+  color: #e2e8f0 !important;
+}
+
+html.dark .text-slate-700 {
+  color: #cbd5e1 !important;
+}
+
+html.dark .text-slate-600 {
+  color: #b8c4d6 !important;
+}
+
+html.dark .text-slate-500 {
+  color: #94a3b8 !important;
+}
+
+html.dark .text-slate-400 {
+  color: #94a3b8 !important;
+}
+
+html.dark .text-slate-300 {
+  color: #cbd5e1 !important;
+}
+
+/* =========================================================
+   DARK MODE — INDIGO BRAND
+   ========================================================= */
+
+html.dark .bg-indigo-50 {
+  background-color: rgba(99, 102, 241, 0.12) !important;
+}
+
+html.dark .text-indigo-700 {
+  color: #a5b4fc !important;
+}
+
+html.dark .text-indigo-600 {
+  color: #818cf8 !important;
+}
+
+/* =========================================================
+   FORM FOUNDATION
+   ========================================================= */
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+input,
+textarea,
+select {
+  color: #0f172a;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #94a3b8;
+}
+
+html.dark input,
+html.dark textarea,
+html.dark select {
+  color: #f1f5f9;
+}
+
+html.dark input::placeholder,
+html.dark textarea::placeholder {
+  color: #64748b;
+}
+
+/* =========================================================
+   INTERACTION
+   ========================================================= */
+
+button,
+a {
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease,
+    opacity 180ms ease;
+}
+
+/* =========================================================
+   FOCUS
+   ========================================================= */
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid #6366f1;
+  outline-offset: 2px;
+}
+
+/* =========================================================
+   SELECTION
+   ========================================================= */
+
+::selection {
+  background: rgba(99, 102, 241, 0.18);
+  color: inherit;
+}
+
+/* =========================================================
+   IMAGES
+   ========================================================= */
+
+img {
+  max-width: 100%;
+}
+
+/* =========================================================
+   SCROLLBAR
+   ========================================================= */
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+}
+
+html.dark * {
+  scrollbar-color: #475569 transparent;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+html.dark ::-webkit-scrollbar-thumb {
+  background: #475569;
+}
+
+html.dark ::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}
+/* =========================================================
+   PEERLINK SESSION HUB — AMAKA STANDARD
+   ========================================================= */
+
+.session-hub-page {
+  padding-bottom: 3rem;
+}
+
+.session-hub-page > section {
+  transition:
+    background-color 200ms ease,
+    border-color 200ms ease,
+    box-shadow 200ms ease,
+    transform 200ms ease;
+}
+
+/* Main cards */
+.session-hub-page > section:not(.session-hub-classroom) {
+  position: relative;
+}
+
+/* Session cards become more refined */
+.session-hub-page > section:not(.session-hub-classroom) {
+  border-radius: 1.75rem;
+}
+
+/* Better card depth in light mode */
+@media (min-width: 768px) {
+  .session-hub-page > section:not(.session-hub-classroom) {
+    box-shadow:
+      0 8px 30px rgba(15, 23, 42, 0.045);
+  }
+}
+
+/* Dark-mode depth */
+html.dark .session-hub-page > section:not(.session-hub-classroom) {
+  box-shadow:
+    0 12px 35px rgba(0, 0, 0, 0.18);
+}
+
+/* Session Hub page links */
+.session-hub-page > a:first-child {
+  transition:
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+.session-hub-page > a:first-child:hover {
+  transform: translateX(-2px);
+}
+
+/* Headings */
+.session-hub-page h1,
+.session-hub-page h2,
+.session-hub-page h3 {
+  letter-spacing: -0.025em;
+}
+
+/* Better muted copy */
+html.dark .session-hub-page p.text-slate-500,
+html.dark .session-hub-page p.text-slate-400 {
+  color: #94a3b8 !important;
+}
+
+/* Better form fields */
+html.dark .session-hub-page input,
+html.dark .session-hub-page textarea,
+html.dark .session-hub-page select {
+  background-color: #172033 !important;
+  border-color: #334155 !important;
+  color: #f8fafc !important;
+}
+
+html.dark .session-hub-page input::placeholder,
+html.dark .session-hub-page textarea::placeholder {
+  color: #718096 !important;
+}
+
+/* Better dashed upload area */
+html.dark .session-hub-page .border-dashed {
+  border-color: #475569 !important;
+}
+
+/* Session status cards */
+html.dark .session-hub-page .bg-emerald-50 {
+  background-color: rgba(16, 185, 129, 0.09) !important;
+}
+
+html.dark .session-hub-page .bg-indigo-50 {
+  background-color: rgba(99, 102, 241, 0.12) !important;
+}
+
+/* Prevent the live classroom from being affected by
+   normal page card styling */
+.session-hub-classroom {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+/* =========================================================
+   PEERLINK SESSION HUB
+   AMAKA STANDARD UI
+   ========================================================= */
+
+.session-hub-shell {
+  padding-bottom: 3rem;
+}
+
+/* Main page cards */
+
+.session-hub-shell > section {
+  border-radius: 1.75rem;
+  transition:
+    background-color 200ms ease,
+    border-color 200ms ease,
+    box-shadow 200ms ease,
+    transform 200ms ease;
+}
+
+/* Refined light-mode depth */
+
+.session-hub-shell > section:not(.session-hub-classroom) {
+  box-shadow:
+    0 8px 30px rgba(15, 23, 42, 0.045);
+}
+
+/* Dark-mode page */
+
+html.dark .session-hub-shell {
+  color: #f8fafc;
+}
+
+html.dark .session-hub-shell > section:not(.session-hub-classroom) {
+  box-shadow:
+    0 12px 35px rgba(0, 0, 0, 0.18);
+}
+
+/* Make the page header feel more premium */
+
+.session-hub-shell > section:first-of-type h1 {
+  letter-spacing: -0.035em;
+}
+
+/* Back link */
+
+.session-hub-shell > a {
+  transition:
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+.session-hub-shell > a:hover {
+  transform: translateX(-2px);
+}
+
+/* Light-mode cards */
+
+.session-hub-shell .bg-white {
+  box-shadow:
+    0 4px 18px rgba(15, 23, 42, 0.025);
+}
+
+/* Dark-mode surfaces */
+
+html.dark .session-hub-shell .bg-white {
+  background-color: #1e293b !important;
+}
+
+html.dark .session-hub-shell .bg-slate-50 {
+  background-color: #172033 !important;
+}
+
+html.dark .session-hub-shell .bg-slate-100 {
+  background-color: #243044 !important;
+}
+
+/* Dark-mode borders */
+
+html.dark .session-hub-shell .border-slate-100 {
+  border-color: #263449 !important;
+}
+
+html.dark .session-hub-shell .border-slate-200 {
+  border-color: #334155 !important;
+}
+
+/* Dark-mode form fields */
+
+html.dark .session-hub-shell input,
+html.dark .session-hub-shell textarea,
+html.dark .session-hub-shell select {
+  background-color: #172033 !important;
+  border-color: #334155 !important;
+  color: #f8fafc !important;
+}
+
+html.dark .session-hub-shell input::placeholder,
+html.dark .session-hub-shell textarea::placeholder {
+  color: #718096 !important;
+}
+
+/* Selected meeting option */
+
+html.dark .session-hub-shell .border-indigo-600.bg-indigo-50 {
+  background-color: rgba(99, 102, 241, 0.14) !important;
+  border-color: #818cf8 !important;
+}
+
+/* Indigo information panels */
+
+html.dark .session-hub-shell .bg-indigo-50 {
+  background-color: rgba(99, 102, 241, 0.11) !important;
+}
+
+/* Emerald status panels */
+
+html.dark .session-hub-shell .bg-emerald-50 {
+  background-color: rgba(16, 185, 129, 0.09) !important;
+}
+
+html.dark .session-hub-shell .text-emerald-700 {
+  color: #6ee7b7 !important;
+}
+
+html.dark .session-hub-shell .text-emerald-800 {
+  color: #a7f3d0 !important;
+}
+
+/* Better resource upload area */
+
+html.dark .session-hub-shell .border-dashed {
+  border-color: #475569 !important;
+}
+
+html.dark .session-hub-shell .border-dashed.bg-slate-50 {
+  background-color: #172033 !important;
+}
+
+/* Better cards for notes/resources */
+
+.session-hub-shell article,
+.session-hub-shell [class*="rounded-2xl"] {
+  transition:
+    border-color 180ms ease,
+    background-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+/* Improve hover feel */
+
+.session-hub-shell article:hover {
+  box-shadow:
+    0 8px 24px rgba(15, 23, 42, 0.05);
+}
+
+html.dark .session-hub-shell article:hover {
+  box-shadow:
+    0 10px 28px rgba(0, 0, 0, 0.16);
+}
+
+/* =========================================================
+   LIVE CLASSROOM
+   Keep this intentionally dark and separate
+   ========================================================= */
+
+.session-hub-classroom {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+/* =========================================================
+   MOBILE REFINEMENT
+   ========================================================= */
+
+@media (max-width: 640px) {
+  .session-hub-shell {
+    padding-bottom: 2rem;
+  }
+
+  .session-hub-shell > section {
+    border-radius: 1.4rem;
+  }
+
+  .session-hub-shell h1 {
+    font-size: 2rem;
+  }
+
+  .session-hub-shell h2 {
+    font-size: 1.15rem;
+  }
+}
