@@ -14,7 +14,7 @@ import Connections from "./pages/Connections";
 import Profile from "./pages/Profile";
 import SessionHub from "./pages/SessionHub";
 
-import AppLayout from "./components/AppLayout";
+import AppLayout from "./Components/AppLayout";
 
 function App() {
   return (
