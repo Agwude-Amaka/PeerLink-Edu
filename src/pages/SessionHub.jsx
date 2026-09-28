@@ -31,6 +31,7 @@ import {
   MessageSquare,
   MonitorUp,
   SwitchCamera,
+  Send,
 } from "lucide-react";
 import {
   Room,
