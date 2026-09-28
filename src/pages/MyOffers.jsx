@@ -25,115 +25,113 @@ loadOffers();
 }, []);
 
 async function loadOffers() {
-setLoading(true);
-setError("");
+  setLoading(true);
+  setError("");
 
-```
-const {
-  data: { user },
-  error: userError,
-} = await supabase.auth.getUser();
+  try {
+    const {
+      data: { session },
+      error: sessionError,
+    } = await supabase.auth.getSession();
 
-if (userError || !user) {
-  setError("Your session could not be verified.");
-  setLoading(false);
-  return;
-}
+    if (sessionError || !session?.user) {
+      setError("Your session could not be verified.");
+      return;
+    }
 
-const { data: offerData, error: offerError } = await supabase
-  .from("help_offers")
-  .select("id, subject, topic, description, created_at")
-  .eq("user_id", user.id)
-  .order("created_at", { ascending: false });
+    const user = session.user;
 
-if (offerError) {
-  console.error("My Offers error:", offerError);
-  setError(offerError.message);
-  setLoading(false);
-  return;
-}
+    const { data: offerData, error: offerError } = await supabase
+      .from("help_offers")
+      .select("id, subject, topic, description, created_at")
+      .eq("user_id", user.id)
+      .order("created_at", { ascending: false });
 
-const offerIds = (offerData || []).map((offer) => offer.id);
+    if (offerError) {
+      console.error("My Offers error:", offerError);
+      setError(offerError.message);
+      return;
+    }
 
-let availabilityData = [];
+    const offerIds = (offerData || []).map((offer) => offer.id);
 
-if (offerIds.length > 0) {
-  const {
-    data,
-    error: availabilityError,
-  } = await supabase
-    .from("help_availability")
-    .select(
-      "id, help_offer_id, available_date, start_time, end_time"
-    )
-    .in("help_offer_id", offerIds);
+    let availabilityData = [];
 
-  if (availabilityError) {
-    console.error(
-      "My Offers availability error:",
-      availabilityError
-    );
-    setError(availabilityError.message);
-    setLoading(false);
-    return;
-  }
+    if (offerIds.length > 0) {
+      const {
+        data,
+        error: availabilityError,
+      } = await supabase
+        .from("help_availability")
+        .select(
+          "id, help_offer_id, available_date, start_time, end_time"
+        )
+        .in("help_offer_id", offerIds);
 
-  availabilityData = data || [];
-}
-
-const combinedOffers = (offerData || []).map((offer) => {
-  const availability = availabilityData
-    .filter((item) => item.help_offer_id === offer.id)
-    .sort((a, b) => {
-      const dateComparison =
-        a.available_date.localeCompare(b.available_date);
-
-      if (dateComparison !== 0) {
-        return dateComparison;
+      if (availabilityError) {
+        console.error(
+          "My Offers availability error:",
+          availabilityError
+        );
+        setError(availabilityError.message);
+        return;
       }
 
-      return a.start_time.localeCompare(b.start_time);
+      availabilityData = data || [];
+    }
+
+    const combinedOffers = (offerData || []).map((offer) => {
+      const availability = availabilityData
+        .filter((item) => item.help_offer_id === offer.id)
+        .sort((a, b) => {
+          const dateComparison =
+            a.available_date.localeCompare(b.available_date);
+
+          if (dateComparison !== 0) {
+            return dateComparison;
+          }
+
+          return a.start_time.localeCompare(b.start_time);
+        });
+
+      return {
+        ...offer,
+        availability,
+      };
     });
 
-  return {
-    ...offer,
-    availability,
-  };
-});
-
-setOffers(combinedOffers);
-setLoading(false);
-```
-
+    setOffers(combinedOffers);
+  } catch (err) {
+    console.error("Unexpected My Offers error:", err);
+    setError(
+      err?.message || "Something went wrong while loading your offers."
+    );
+  } finally {
+    setLoading(false);
+  }
 }
 
 function formatDate(dateString) {
-const date = new Date(`${dateString}T00:00:00`);
+  const date = new Date(`${dateString}T00:00:00`);
 
-```
-return date.toLocaleDateString("en-US", {
-  weekday: "short",
-  month: "short",
-  day: "numeric",
-  year: "numeric",
-});
-```
-
+  return date.toLocaleDateString("en-US", {
+    weekday: "short",
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
 }
 
 function formatTime(timeString) {
-const [hours, minutes] = timeString.split(":");
-const date = new Date();
+  const [hours, minutes] = timeString.split(":");
+  const date = new Date();
 
-```
-date.setHours(Number(hours), Number(minutes), 0, 0);
+  date.setHours(Number(hours), Number(minutes), 0, 0);
 
-return date.toLocaleTimeString("en-US", {
-  hour: "numeric",
-  minute: "2-digit",
-});
-```
-
+  return date.toLocaleTimeString("en-US", {
+    hour: "numeric",
+    minute: "2-digit",
+  });
 }
 
 async function deleteOffer(offerId) {
