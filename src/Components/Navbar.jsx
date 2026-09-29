@@ -214,34 +214,25 @@ function Navbar({
 
         {/* Bottom section */}
         <div className="shrink-0 border-t border-slate-100 p-4 dark:border-slate-800">
-          {/* Theme toggle */}
-          <button
-            type="button"
-            onClick={toggleTheme}
-            className="mb-3 flex w-full items-center justify-between rounded-xl px-3 py-3 text-[13px] font-semibold text-slate-500 transition-all duration-200 hover:bg-slate-50 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-900 dark:hover:text-white"
-          >
-            <span className="flex items-center gap-3">
-              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-300">
-                {darkMode ? <Sun size={16} /> : <Moon size={16} />}
-              </span>
+   
+{/* Theme toggle */}
+<button
+  type="button"
+  onClick={toggleTheme}
+  aria-label={darkMode ? "Switch to light mode" : "Switch to dark mode"}
+  className="mb-3 flex w-full items-center gap-3 rounded-xl border border-slate-200/80 bg-slate-50 px-3 py-2.5 text-[13px] font-semibold text-slate-600 transition-all duration-200 hover:border-blue-200 hover:bg-blue-50/60 hover:text-slate-900 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300 dark:hover:border-blue-500/20 dark:hover:bg-slate-800"
+>
+  <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-white text-base shadow-sm dark:bg-slate-800">
+    {darkMode ? "☀️" : "🌙"}
+  </span>
 
-              {darkMode ? "Light mode" : "Dark mode"}
-            </span>
+  <span>
+    {darkMode ? "Light mode" : "Dark mode"}
+  </span>
+</button>
 
-            <span
-              className={`relative h-5 w-9 rounded-full transition-colors ${
-                darkMode
-                  ? "bg-indigo-600"
-                  : "bg-slate-200 dark:bg-slate-700"
-              }`}
-            >
-              <span
-                className={`absolute top-0.5 h-4 w-4 rounded-full bg-white shadow-sm transition-transform ${
-                  darkMode ? "translate-x-4" : "translate-x-0.5"
-                }`}
-              />
-            </span>
-          </button>
+
+
 
           {/* User card */}
           <Link

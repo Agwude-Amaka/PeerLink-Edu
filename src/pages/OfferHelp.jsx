@@ -51,9 +51,7 @@ function OfferHelp() {
     setMessage("");
 
     if (!availableDate || !startTime || !endTime) {
-      setMessage(
-        "Please choose a date, start time, and end time."
-      );
+      setMessage("Please choose a date, start time, and end time.");
       return;
     }
 
@@ -174,11 +172,7 @@ function OfferHelp() {
         );
       }
 
-      // Create the help offer
-      const {
-        data: offer,
-        error: offerError,
-      } = await supabase
+      const { data: offer, error: offerError } = await supabase
         .from("help_offers")
         .insert({
           user_id: user.id,
@@ -194,7 +188,6 @@ function OfferHelp() {
         throw new Error(offerError.message);
       }
 
-      // Create availability
       const availabilityRows = availability.map((item) => ({
         help_offer_id: offer.id,
         available_date: item.date,
@@ -202,17 +195,12 @@ function OfferHelp() {
         end_time: item.endTime,
       }));
 
-      const {
-        error: availabilityError,
-      } = await supabase
+      const { error: availabilityError } = await supabase
         .from("help_availability")
         .insert(availabilityRows);
 
       if (availabilityError) {
-        console.error(
-          "Availability error:",
-          availabilityError
-        );
+        console.error("Availability error:", availabilityError);
 
         await supabase
           .from("help_offers")
@@ -222,8 +210,6 @@ function OfferHelp() {
         throw new Error(availabilityError.message);
       }
 
-      // Create notification only after the offer
-      // and all availability slots were saved successfully.
       const { error: notificationError } = await supabase
         .from("notifications")
         .insert({
@@ -236,8 +222,6 @@ function OfferHelp() {
         });
 
       if (notificationError) {
-        // Do not undo the successful offer if the notification fails.
-        // The offer itself has already been created correctly.
         console.error(
           "Offer notification error:",
           notificationError
@@ -258,8 +242,7 @@ function OfferHelp() {
       console.error("Publish Help Offer error:", error);
 
       setMessage(
-        error.message ||
-          "Something went wrong while publishing."
+        error.message || "Something went wrong while publishing."
       );
     } finally {
       setPublishing(false);
@@ -280,30 +263,34 @@ function OfferHelp() {
 
   return (
     <main className="relative min-h-full overflow-hidden">
+      {/* Page atmosphere */}
       <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute -left-32 top-0 h-80 w-80 rounded-full bg-indigo-200/20 blur-3xl dark:bg-indigo-500/10" />
-        <div className="absolute right-0 top-40 h-96 w-96 rounded-full bg-violet-200/20 blur-3xl dark:bg-violet-500/10" />
+        <div className="absolute -left-32 top-0 h-80 w-80 rounded-full bg-cyan-200/25 blur-3xl dark:bg-cyan-400/10" />
+        <div className="absolute right-0 top-40 h-96 w-96 rounded-full bg-sky-200/25 blur-3xl dark:bg-sky-500/10" />
+        <div className="absolute left-1/2 top-[55%] h-72 w-72 -translate-x-1/2 rounded-full bg-slate-200/30 blur-3xl dark:bg-[#173143]" />
       </div>
 
       <div className="mx-auto max-w-6xl px-4 pb-12 sm:px-6 lg:px-8">
-        <section className="relative mb-8 overflow-hidden rounded-[30px] border border-slate-200/80 bg-white px-6 py-8 shadow-[0_20px_60px_-30px_rgba(15,23,42,0.25)] dark:border-slate-800 dark:bg-slate-900 sm:px-8 lg:px-10 lg:py-10">
-          <div className="absolute right-0 top-0 h-48 w-48 rounded-full bg-indigo-100/50 blur-3xl dark:bg-indigo-500/10" />
+        {/* Hero */}
+        <section className="relative mb-8 overflow-hidden rounded-[30px] border border-[#d8e3e8] bg-white px-6 py-8 shadow-[0_20px_60px_-30px_rgba(15,45,60,0.25)] dark:border-[#294352] dark:bg-[#102432] sm:px-8 lg:px-10 lg:py-10">
+          <div className="absolute right-0 top-0 h-64 w-64 rounded-full bg-cyan-100/60 blur-3xl dark:bg-cyan-400/10" />
+          <div className="absolute bottom-0 left-1/3 h-32 w-64 rounded-full bg-sky-100/50 blur-3xl dark:bg-sky-500/10" />
 
           <div className="relative flex flex-col justify-between gap-8 lg:flex-row lg:items-center">
             <div className="max-w-2xl">
-              <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-indigo-100 bg-indigo-50 px-3 py-1.5 text-xs font-bold text-indigo-700 dark:border-indigo-500/20 dark:bg-indigo-500/10 dark:text-indigo-300">
+              <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-cyan-100 bg-cyan-50 px-3 py-1.5 text-xs font-bold text-cyan-700 dark:border-cyan-400/20 dark:bg-cyan-400/10 dark:text-cyan-300">
                 <Sparkles size={14} />
                 PeerLink Community
               </div>
 
-              <h1 className="text-3xl font-bold tracking-tight text-slate-950 dark:text-white sm:text-4xl">
+              <h1 className="text-3xl font-bold tracking-tight text-[#10212b] dark:text-[#f4fbfd] sm:text-4xl">
                 Share what you know.
-                <span className="block text-indigo-600 dark:text-indigo-400">
+                <span className="block text-cyan-600 dark:text-cyan-300">
                   Help someone grow.
                 </span>
               </h1>
 
-              <p className="mt-4 max-w-xl text-sm leading-7 text-slate-500 dark:text-slate-400 sm:text-base">
+              <p className="mt-4 max-w-xl text-sm leading-7 text-[#526873] dark:text-[#c8dbe3] sm:text-base">
                 Create a help offer, choose your availability,
                 and make it easier for another student to learn
                 from you.
@@ -311,14 +298,14 @@ function OfferHelp() {
             </div>
 
             <div className="hidden shrink-0 lg:flex">
-              <div className="relative flex h-32 w-32 items-center justify-center rounded-[28px] bg-slate-950 shadow-xl shadow-slate-950/10 dark:bg-slate-800">
+              <div className="relative flex h-32 w-32 items-center justify-center rounded-[28px] bg-[#073b4c] shadow-xl shadow-cyan-900/10 dark:bg-[#0b3042]">
                 <div className="absolute inset-3 rounded-[22px] border border-white/10" />
 
-                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-indigo-500 text-white shadow-lg shadow-indigo-500/30">
+                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-cyan-400 text-[#062b38] shadow-lg shadow-cyan-400/25">
                   <Users size={27} />
                 </div>
 
-                <div className="absolute -right-3 -top-3 flex h-9 w-9 items-center justify-center rounded-xl bg-white text-indigo-600 shadow-lg dark:bg-slate-700 dark:text-indigo-300">
+                <div className="absolute -right-3 -top-3 flex h-9 w-9 items-center justify-center rounded-xl bg-white text-cyan-700 shadow-lg dark:bg-[#203746] dark:text-cyan-300">
                   <Sparkles size={16} />
                 </div>
               </div>
@@ -327,19 +314,20 @@ function OfferHelp() {
         </section>
 
         <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_300px]">
-          <section className="overflow-hidden rounded-[30px] border border-slate-200/80 bg-white shadow-[0_20px_60px_-35px_rgba(15,23,42,0.3)] dark:border-slate-800 dark:bg-slate-900">
-            <div className="border-b border-slate-100 px-6 py-6 dark:border-slate-800 sm:px-8">
+          {/* Main form */}
+          <section className="overflow-hidden rounded-[30px] border border-[#d8e3e8] bg-white shadow-[0_20px_60px_-35px_rgba(15,45,60,0.3)] dark:border-[#294352] dark:bg-[#102432]">
+            <div className="border-b border-[#e3eaed] px-6 py-6 dark:border-[#294352] sm:px-8">
               <div className="flex items-start gap-4">
-                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-indigo-50 text-indigo-600 dark:bg-indigo-500/10 dark:text-indigo-400">
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-cyan-50 text-cyan-700 dark:bg-cyan-400/10 dark:text-cyan-300">
                   <BookOpen size={21} />
                 </div>
 
                 <div>
-                  <h2 className="text-lg font-bold text-slate-900 dark:text-white">
+                  <h2 className="text-lg font-bold text-[#10212b] dark:text-[#f4fbfd]">
                     Create a help offer
                   </h2>
 
-                  <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+                  <p className="mt-1 text-sm text-[#607985] dark:text-[#93aeb9]">
                     Tell students what you can help them learn.
                   </p>
                 </div>
@@ -350,10 +338,11 @@ function OfferHelp() {
               onSubmit={handlePublish}
               className="space-y-8 p-6 sm:p-8"
             >
+              {/* Subject */}
               <div>
                 <label
                   htmlFor="subject"
-                  className="mb-2.5 block text-sm font-semibold text-slate-800 dark:text-slate-200"
+                  className="mb-2.5 block text-sm font-semibold text-[#253c47] dark:text-[#e5f0f4]"
                 >
                   Subject
                 </label>
@@ -361,7 +350,7 @@ function OfferHelp() {
                 <div className="relative">
                   <BookOpen
                     size={18}
-                    className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
+                    className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#718792]"
                   />
 
                   <select
@@ -376,7 +365,7 @@ function OfferHelp() {
 
                       setMessage("");
                     }}
-                    className="w-full appearance-none rounded-2xl border border-slate-200 bg-slate-50 px-11 py-3.5 text-sm font-medium text-slate-700 outline-none transition focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-500/10 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 dark:focus:bg-slate-800"
+                    className="w-full appearance-none rounded-2xl border border-[#d8e3e8] bg-[#f1f5f7] px-11 py-3.5 text-sm font-medium text-[#405661] outline-none transition focus:border-cyan-500 focus:bg-white focus:ring-4 focus:ring-cyan-500/10 dark:border-[#294352] dark:bg-[#172d3c] dark:text-[#d7e5eb] dark:focus:border-cyan-400 dark:focus:bg-[#1b3545]"
                   >
                     <option value="">Select a subject</option>
 
@@ -391,15 +380,15 @@ function OfferHelp() {
                 </div>
 
                 {subject === "Other" && (
-                  <div className="mt-4 rounded-2xl border border-indigo-100 bg-indigo-50/70 p-4 dark:border-indigo-500/20 dark:bg-indigo-500/10">
+                  <div className="mt-4 rounded-2xl border border-cyan-100 bg-cyan-50/70 p-4 dark:border-cyan-400/20 dark:bg-cyan-400/10">
                     <label
                       htmlFor="customSubject"
-                      className="block text-sm font-semibold text-slate-800 dark:text-slate-200"
+                      className="block text-sm font-semibold text-[#253c47] dark:text-[#e5f0f4]"
                     >
                       Enter your subject
                     </label>
 
-                    <p className="mt-1 text-xs leading-5 text-slate-500 dark:text-slate-400">
+                    <p className="mt-1 text-xs leading-5 text-[#607985] dark:text-[#93aeb9]">
                       Add a subject that isn't in the list,
                       such as Economics, Geography, Government,
                       Literature, or Further Mathematics.
@@ -414,16 +403,17 @@ function OfferHelp() {
                         setMessage("");
                       }}
                       placeholder="e.g. Economics"
-                      className="mt-3 w-full rounded-xl border border-indigo-100 bg-white px-4 py-3 text-sm text-slate-700 outline-none transition placeholder:text-slate-400 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                      className="mt-3 w-full rounded-xl border border-[#cfe0e5] bg-white px-4 py-3 text-sm text-[#405661] outline-none transition placeholder:text-[#8a9aa2] focus:border-cyan-500 focus:ring-4 focus:ring-cyan-500/10 dark:border-[#3a5665] dark:bg-[#172d3c] dark:text-[#e5f0f4]"
                     />
                   </div>
                 )}
               </div>
 
+              {/* Topic */}
               <div>
                 <label
                   htmlFor="topic"
-                  className="mb-2.5 block text-sm font-semibold text-slate-800 dark:text-slate-200"
+                  className="mb-2.5 block text-sm font-semibold text-[#253c47] dark:text-[#e5f0f4]"
                 >
                   Topic
                 </label>
@@ -437,20 +427,21 @@ function OfferHelp() {
                     setMessage("");
                   }}
                   placeholder="e.g. Trigonometry, Mole Concept, Waves"
-                  className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3.5 text-sm text-slate-700 outline-none transition placeholder:text-slate-400 focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-500/10 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 dark:focus:bg-slate-800"
+                  className="w-full rounded-2xl border border-[#d8e3e8] bg-[#f1f5f7] px-4 py-3.5 text-sm text-[#405661] outline-none transition placeholder:text-[#8a9aa2] focus:border-cyan-500 focus:bg-white focus:ring-4 focus:ring-cyan-500/10 dark:border-[#294352] dark:bg-[#172d3c] dark:text-[#d7e5eb] dark:focus:border-cyan-400 dark:focus:bg-[#1b3545]"
                 />
               </div>
 
+              {/* Description */}
               <div>
                 <div className="mb-2.5 flex items-end justify-between gap-4">
                   <label
                     htmlFor="description"
-                    className="block text-sm font-semibold text-slate-800 dark:text-slate-200"
+                    className="block text-sm font-semibold text-[#253c47] dark:text-[#e5f0f4]"
                   >
                     What can you help with?
                   </label>
 
-                  <span className="hidden text-xs text-slate-400 sm:block">
+                  <span className="hidden text-xs text-[#7b8e97] sm:block">
                     Be specific
                   </span>
                 </div>
@@ -464,37 +455,36 @@ function OfferHelp() {
                   }}
                   rows={5}
                   placeholder="Describe what you understand and how you could help another student."
-                  className="w-full resize-none rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3.5 text-sm leading-6 text-slate-700 outline-none transition placeholder:text-slate-400 focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-500/10 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 dark:focus:bg-slate-800"
+                  className="w-full resize-none rounded-2xl border border-[#d8e3e8] bg-[#f1f5f7] px-4 py-3.5 text-sm leading-6 text-[#405661] outline-none transition placeholder:text-[#8a9aa2] focus:border-cyan-500 focus:bg-white focus:ring-4 focus:ring-cyan-500/10 dark:border-[#294352] dark:bg-[#172d3c] dark:text-[#d7e5eb] dark:focus:border-cyan-400 dark:focus:bg-[#1b3545]"
                 />
               </div>
 
+              {/* Availability */}
               <div>
                 <div className="mb-4">
                   <div className="flex items-center gap-2">
-                    <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-200">
+                    <h3 className="text-sm font-semibold text-[#253c47] dark:text-[#e5f0f4]">
                       Availability
                     </h3>
 
-                    <span className="rounded-full bg-slate-100 px-2 py-0.5 text-[11px] font-semibold text-slate-500 dark:bg-slate-800 dark:text-slate-400">
+                    <span className="rounded-full bg-[#e8f0f3] px-2 py-0.5 text-[11px] font-semibold text-[#607985] dark:bg-[#203746] dark:text-[#a9bec7]">
                       {availability.length}{" "}
-                      {availability.length === 1
-                        ? "slot"
-                        : "slots"}
+                      {availability.length === 1 ? "slot" : "slots"}
                     </span>
                   </div>
 
-                  <p className="mt-1 text-xs leading-5 text-slate-400">
-                    Add the dates and times when you can actually
-                    help.
+                  <p className="mt-1 text-xs leading-5 text-[#718792] dark:text-[#93aeb9]">
+                    Add the dates and times when you can actually help.
                   </p>
                 </div>
 
-                <div className="rounded-[24px] border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-800/70 sm:p-5">
+                <div className="rounded-[24px] border border-[#d8e3e8] bg-[#f1f5f7] p-4 dark:border-[#294352] dark:bg-[#172d3c] sm:p-5">
                   <div className="grid gap-4 md:grid-cols-3">
+                    {/* Date */}
                     <div>
                       <label
                         htmlFor="availableDate"
-                        className="mb-2 block text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400"
+                        className="mb-2 block text-xs font-semibold uppercase tracking-wide text-[#607985] dark:text-[#a9bec7]"
                       >
                         Date
                       </label>
@@ -502,31 +492,28 @@ function OfferHelp() {
                       <div className="relative">
                         <CalendarDays
                           size={17}
-                          className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"
+                          className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-[#718792]"
                         />
 
                         <input
                           id="availableDate"
                           type="date"
                           value={availableDate}
-                          min={
-                            new Date()
-                              .toISOString()
-                              .split("T")[0]
-                          }
+                          min={new Date().toISOString().split("T")[0]}
                           onChange={(event) => {
                             setAvailableDate(event.target.value);
                             setMessage("");
                           }}
-                          className="w-full rounded-xl border border-slate-200 bg-white px-10 py-3 text-sm text-slate-700 outline-none transition focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
+                          className="w-full rounded-xl border border-[#d8e3e8] bg-white px-10 py-3 text-sm text-[#405661] outline-none transition focus:border-cyan-500 focus:ring-4 focus:ring-cyan-500/10 dark:border-[#3a5665] dark:bg-[#102432] dark:text-[#d7e5eb]"
                         />
                       </div>
                     </div>
 
+                    {/* Start */}
                     <div>
                       <label
                         htmlFor="startTime"
-                        className="mb-2 block text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400"
+                        className="mb-2 block text-xs font-semibold uppercase tracking-wide text-[#607985] dark:text-[#a9bec7]"
                       >
                         Start time
                       </label>
@@ -534,7 +521,7 @@ function OfferHelp() {
                       <div className="relative">
                         <Clock3
                           size={17}
-                          className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"
+                          className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-[#718792]"
                         />
 
                         <input
@@ -545,15 +532,16 @@ function OfferHelp() {
                             setStartTime(event.target.value);
                             setMessage("");
                           }}
-                          className="w-full rounded-xl border border-slate-200 bg-white px-10 py-3 text-sm text-slate-700 outline-none transition focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
+                          className="w-full rounded-xl border border-[#d8e3e8] bg-white px-10 py-3 text-sm text-[#405661] outline-none transition focus:border-cyan-500 focus:ring-4 focus:ring-cyan-500/10 dark:border-[#3a5665] dark:bg-[#102432] dark:text-[#d7e5eb]"
                         />
                       </div>
                     </div>
 
+                    {/* End */}
                     <div>
                       <label
                         htmlFor="endTime"
-                        className="mb-2 block text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400"
+                        className="mb-2 block text-xs font-semibold uppercase tracking-wide text-[#607985] dark:text-[#a9bec7]"
                       >
                         End time
                       </label>
@@ -561,7 +549,7 @@ function OfferHelp() {
                       <div className="relative">
                         <Clock3
                           size={17}
-                          className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"
+                          className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-[#718792]"
                         />
 
                         <input
@@ -572,7 +560,7 @@ function OfferHelp() {
                             setEndTime(event.target.value);
                             setMessage("");
                           }}
-                          className="w-full rounded-xl border border-slate-200 bg-white px-10 py-3 text-sm text-slate-700 outline-none transition focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
+                          className="w-full rounded-xl border border-[#d8e3e8] bg-white px-10 py-3 text-sm text-[#405661] outline-none transition focus:border-cyan-500 focus:ring-4 focus:ring-cyan-500/10 dark:border-[#3a5665] dark:bg-[#102432] dark:text-[#d7e5eb]"
                         />
                       </div>
                     </div>
@@ -581,7 +569,7 @@ function OfferHelp() {
                   <button
                     type="button"
                     onClick={addAvailability}
-                    className="mt-5 inline-flex items-center gap-2 rounded-xl bg-slate-950 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-slate-800 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-100"
+                    className="mt-5 inline-flex items-center gap-2 rounded-xl bg-[#073b4c] px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-cyan-700 dark:bg-cyan-400 dark:text-[#062b38] dark:hover:bg-cyan-300"
                   >
                     <Plus size={17} />
                     Add availability
@@ -591,11 +579,11 @@ function OfferHelp() {
                 {sortedAvailability.length > 0 && (
                   <div className="mt-5">
                     <div className="mb-3 flex items-center justify-between">
-                      <p className="text-xs font-bold uppercase tracking-[0.14em] text-slate-400">
+                      <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#718792] dark:text-[#93aeb9]">
                         Your available times
                       </p>
 
-                      <span className="text-xs font-medium text-slate-400">
+                      <span className="text-xs font-medium text-[#718792] dark:text-[#93aeb9]">
                         {sortedAvailability.length} added
                       </span>
                     </div>
@@ -604,19 +592,19 @@ function OfferHelp() {
                       {sortedAvailability.map((item) => (
                         <div
                           key={`${item.date}-${item.startTime}-${item.endTime}`}
-                          className="group flex items-center justify-between gap-4 rounded-2xl border border-slate-200 bg-white px-4 py-4 shadow-sm transition hover:border-indigo-200 hover:shadow-md dark:border-slate-700 dark:bg-slate-900 dark:hover:border-indigo-500/40"
+                          className="group flex items-center justify-between gap-4 rounded-2xl border border-[#d8e3e8] bg-white px-4 py-4 shadow-sm transition hover:border-cyan-200 hover:shadow-md dark:border-[#3a5665] dark:bg-[#102432] dark:hover:border-cyan-400/40"
                         >
                           <div className="flex min-w-0 items-center gap-3">
-                            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600 dark:bg-indigo-500/10 dark:text-indigo-400">
+                            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-cyan-50 text-cyan-700 dark:bg-cyan-400/10 dark:text-cyan-300">
                               <CalendarDays size={18} />
                             </div>
 
                             <div className="min-w-0">
-                              <p className="truncate text-sm font-bold text-slate-800 dark:text-slate-100">
+                              <p className="truncate text-sm font-bold text-[#253c47] dark:text-[#e5f0f4]">
                                 {formatDate(item.date)}
                               </p>
 
-                              <div className="mt-1 flex items-center gap-1.5 text-xs font-medium text-slate-500 dark:text-slate-400">
+                              <div className="mt-1 flex items-center gap-1.5 text-xs font-medium text-[#607985] dark:text-[#93aeb9]">
                                 <Clock3 size={13} />
 
                                 <span>
@@ -629,10 +617,8 @@ function OfferHelp() {
 
                           <button
                             type="button"
-                            onClick={() =>
-                              removeAvailability(item)
-                            }
-                            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl text-slate-400 transition hover:bg-red-50 hover:text-red-600 dark:hover:bg-red-500/10 dark:hover:text-red-400"
+                            onClick={() => removeAvailability(item)}
+                            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl text-[#718792] transition hover:bg-red-50 hover:text-red-600 dark:hover:bg-red-500/10 dark:hover:text-red-400"
                             aria-label="Remove availability"
                             title="Remove availability"
                           >
@@ -645,26 +631,27 @@ function OfferHelp() {
                 )}
               </div>
 
-              <div className="rounded-[22px] border border-indigo-100 bg-indigo-50/70 p-5 dark:border-indigo-500/20 dark:bg-indigo-500/10">
+              {/* Guidance */}
+              <div className="rounded-[22px] border border-cyan-100 bg-cyan-50/70 p-5 dark:border-cyan-400/20 dark:bg-cyan-400/10">
                 <div className="flex gap-3">
-                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-white text-indigo-600 shadow-sm dark:bg-slate-800 dark:text-indigo-400">
+                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-white text-cyan-700 shadow-sm dark:bg-[#203746] dark:text-cyan-300">
                     <CheckCircle2 size={18} />
                   </div>
 
                   <div>
-                    <p className="text-sm font-bold text-slate-800 dark:text-slate-100">
+                    <p className="text-sm font-bold text-[#253c47] dark:text-[#e5f0f4]">
                       Keep it student-friendly
                     </p>
 
-                    <p className="mt-1 text-sm leading-6 text-slate-500 dark:text-slate-400">
-                      Offer help in topics you understand well
-                      enough to explain clearly to another
-                      student.
+                    <p className="mt-1 text-sm leading-6 text-[#607985] dark:text-[#a9bec7]">
+                      Offer help in topics you understand well enough
+                      to explain clearly to another student.
                     </p>
                   </div>
                 </div>
               </div>
 
+              {/* Message */}
               {message && (
                 <div
                   role="alert"
@@ -687,10 +674,11 @@ function OfferHelp() {
                 </div>
               )}
 
-              <div className="flex flex-col-reverse gap-3 border-t border-slate-100 pt-6 dark:border-slate-800 sm:flex-row sm:items-center sm:justify-end">
+              {/* Footer */}
+              <div className="flex flex-col-reverse gap-3 border-t border-[#e3eaed] pt-6 dark:border-[#294352] sm:flex-row sm:items-center sm:justify-end">
                 <Link
                   to="/dashboard"
-                  className="inline-flex items-center justify-center rounded-xl px-5 py-3 text-sm font-semibold text-slate-500 transition hover:bg-slate-100 hover:text-slate-800 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-200"
+                  className="inline-flex items-center justify-center rounded-xl px-5 py-3 text-sm font-semibold text-[#607985] transition hover:bg-[#eef3f5] hover:text-[#253c47] dark:text-[#93aeb9] dark:hover:bg-[#172d3c] dark:hover:text-[#e5f0f4]"
                 >
                   Cancel
                 </Link>
@@ -698,14 +686,11 @@ function OfferHelp() {
                 <button
                   type="submit"
                   disabled={publishing}
-                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-indigo-600 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-indigo-600/20 transition hover:-translate-y-0.5 hover:bg-indigo-700 hover:shadow-indigo-600/30 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0"
+                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#075985] px-6 py-3 text-sm font-bold text-white shadow-lg shadow-cyan-700/20 transition hover:-translate-y-0.5 hover:bg-cyan-700 hover:shadow-cyan-700/25 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0 dark:bg-cyan-400 dark:text-[#062b38] dark:hover:bg-cyan-300"
                 >
                   {publishing ? (
                     <>
-                      <Loader2
-                        size={17}
-                        className="animate-spin"
-                      />
+                      <Loader2 size={17} className="animate-spin" />
                       Publishing...
                     </>
                   ) : (
@@ -719,9 +704,10 @@ function OfferHelp() {
             </form>
           </section>
 
+          {/* Sidebar */}
           <aside className="space-y-5 lg:sticky lg:top-24 lg:self-start">
-            <div className="overflow-hidden rounded-[26px] border border-slate-200/80 bg-slate-950 p-6 text-white shadow-xl shadow-slate-950/10 dark:border-slate-800">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-500/20 text-indigo-300">
+            <div className="overflow-hidden rounded-[26px] border border-[#d8e3e8] bg-[#073b4c] p-6 text-white shadow-xl shadow-cyan-950/10 dark:border-[#294352] dark:bg-[#0b3042]">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-cyan-400/15 text-cyan-300">
                 <Sparkles size={19} />
               </div>
 
@@ -729,7 +715,7 @@ function OfferHelp() {
                 Make your offer useful
               </h2>
 
-              <p className="mt-2 text-sm leading-6 text-slate-400">
+              <p className="mt-2 text-sm leading-6 text-[#b8d0d9]">
                 A clear topic, helpful description, and realistic
                 availability make it easier for students to know
                 whether you're the right person to ask.
@@ -743,13 +729,13 @@ function OfferHelp() {
                 ].map((item, index) => (
                   <div
                     key={item}
-                    className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.04] px-3 py-3"
+                    className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.05] px-3 py-3"
                   >
-                    <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg bg-indigo-500/20 text-[11px] font-bold text-indigo-300">
+                    <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg bg-cyan-400/15 text-[11px] font-bold text-cyan-300">
                       {index + 1}
                     </span>
 
-                    <span className="text-xs font-medium text-slate-300">
+                    <span className="text-xs font-medium text-[#d2e3e8]">
                       {item}
                     </span>
                   </div>
@@ -757,24 +743,24 @@ function OfferHelp() {
               </div>
             </div>
 
-            <div className="rounded-[26px] border border-indigo-100 bg-indigo-50/70 p-6 dark:border-indigo-500/20 dark:bg-indigo-500/10">
+            <div className="rounded-[26px] border border-cyan-100 bg-cyan-50/70 p-6 dark:border-cyan-400/20 dark:bg-cyan-400/10">
               <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white text-indigo-600 shadow-sm dark:bg-slate-800 dark:text-indigo-400">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white text-cyan-700 shadow-sm dark:bg-[#203746] dark:text-cyan-300">
                   <Users size={19} />
                 </div>
 
                 <div>
-                  <p className="text-sm font-bold text-slate-800 dark:text-slate-100">
+                  <p className="text-sm font-bold text-[#253c47] dark:text-[#e5f0f4]">
                     Peer learning
                   </p>
 
-                  <p className="text-xs text-slate-500 dark:text-slate-400">
+                  <p className="text-xs text-[#607985] dark:text-[#93aeb9]">
                     Share knowledge. Build connections.
                   </p>
                 </div>
               </div>
 
-              <p className="mt-4 text-sm leading-6 text-slate-500 dark:text-slate-400">
+              <p className="mt-4 text-sm leading-6 text-[#607985] dark:text-[#a9bec7]">
                 Your goal isn't to be an expert in everything.
                 It's simply to help where you can.
               </p>

@@ -1,29 +1,92 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* =========================================================
-   PEERLINK EDU — AMAKA STANDARD
-   Global Design Foundation
+   PEERLINK EDU — AQUA / WHITE DESIGN SYSTEM
    ========================================================= */
 
 :root {
-  color-scheme: light;
+  --pl-bg: #f5fbfc;
+  --pl-surface: #ffffff;
+  --pl-surface-soft: #f1f6f8;
+  --pl-surface-muted: #e8f1f4;
+
+  --pl-border: #d9e5e9;
+  --pl-border-strong: #c5d5da;
+
+  --pl-text: #14232c;
+  --pl-text-secondary: #4e626c;
+  --pl-text-muted: #71838c;
+
+  --pl-primary: #00aebe;
+  --pl-primary-hover: #008f9f;
+  --pl-primary-dark: #007d8c;
+
+  --pl-accent: #55d6df;
+  --pl-accent-soft: #e2f8fa;
+
+  --pl-shadow: 0 8px 30px rgba(20, 50, 60, 0.07);
+  --pl-shadow-hover: 0 14px 38px rgba(20, 50, 60, 0.11);
+
+  --pl-gradient: linear-gradient(
+    135deg,
+    #00aebe 0%,
+    #36cbd4 52%,
+    #69dce1 100%
+  );
 }
 
-html {
-  min-height: 100%;
-  background: #f8f9fc;
-}
+/* =========================================================
+   DARK MODE
+   ========================================================= */
 
 html.dark {
-  color-scheme: dark;
-  background: #0f172a;
+  --pl-bg: #0a151b;
+  --pl-surface: #101f27;
+  --pl-surface-soft: #162932;
+  --pl-surface-muted: #1b323c;
+
+  --pl-border: #29424c;
+  --pl-border-strong: #3a5661;
+
+  --pl-text: #f3fafb;
+  --pl-text-secondary: #c1d0d5;
+  --pl-text-muted: #91a6ae;
+
+  --pl-primary: #43d4df;
+  --pl-primary-hover: #67dfe7;
+  --pl-primary-dark: #2dbbc7;
+
+  --pl-accent: #68dce4;
+  --pl-accent-soft: #15343d;
+
+  --pl-shadow: 0 10px 35px rgba(0, 0, 0, 0.24);
+  --pl-shadow-hover: 0 16px 42px rgba(0, 0, 0, 0.34);
+
+  --pl-gradient: linear-gradient(
+    135deg,
+    #087f8e 0%,
+    #1ba8b5 52%,
+    #55ced7 100%
+  );
+}
+
+/* =========================================================
+   BASE
+   ========================================================= */
+
+html {
+  background: var(--pl-bg);
+  color: var(--pl-text);
+  scroll-behavior: smooth;
 }
 
 body {
   margin: 0;
   min-width: 320px;
-  min-height: 100vh;
-
+  background: var(--pl-bg);
+  color: var(--pl-text);
   font-family:
     Inter,
     ui-sans-serif,
@@ -32,148 +95,14 @@ body {
     BlinkMacSystemFont,
     "Segoe UI",
     sans-serif;
-
-  background: #f8f9fc;
-  color: #0f172a;
-
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-
-  transition:
-    background-color 200ms ease,
-    color 200ms ease;
+  text-rendering: optimizeLegibility;
 }
 
-html.dark body {
-  background: #0f172a;
-  color: #f1f5f9;
+* {
+  box-sizing: border-box;
 }
-
-/* =========================================================
-   ROOT
-   ========================================================= */
-
-#root {
-  min-height: 100vh;
-  width: 100%;
-  max-width: 100%;
-}
-
-/* Prevent accidental horizontal scrolling */
-
-html,
-body,
-#root {
-  overflow-x: hidden;
-}
-
-/* =========================================================
-   DARK MODE — SURFACES
-   ========================================================= */
-
-html.dark .bg-white {
-  background-color: #1e293b !important;
-}
-
-html.dark .bg-\[\#f8f9fc\] {
-  background-color: #0f172a !important;
-}
-
-html.dark .bg-slate-50 {
-  background-color: #172033 !important;
-}
-
-html.dark .bg-slate-100 {
-  background-color: #243044 !important;
-}
-
-html.dark .bg-slate-50 {
-  background-color: #172033 !important;
-}
-
-html.dark .bg-slate-100 {
-  background-color: #243044 !important;
-}
-
-html.dark .bg-white {
-  background-color: #1e293b !important;
-}
-
-html.dark .border-slate-200 {
-  border-color: #334155 !important;
-}
-
-html.dark .border-slate-100 {
-  border-color: #263449 !important;
-}
-
-/* =========================================================
-   DARK MODE — BORDERS
-   ========================================================= */
-
-html.dark .border-slate-100 {
-  border-color: #263449 !important;
-}
-
-html.dark .border-slate-200 {
-  border-color: #334155 !important;
-}
-
-/* =========================================================
-   DARK MODE — TEXT
-   ========================================================= */
-
-html.dark .text-slate-950 {
-  color: #f8fafc !important;
-}
-
-html.dark .text-slate-900 {
-  color: #f8fafc !important;
-}
-
-html.dark .text-slate-800 {
-  color: #e2e8f0 !important;
-}
-
-html.dark .text-slate-700 {
-  color: #cbd5e1 !important;
-}
-
-html.dark .text-slate-600 {
-  color: #b8c4d6 !important;
-}
-
-html.dark .text-slate-500 {
-  color: #94a3b8 !important;
-}
-
-html.dark .text-slate-400 {
-  color: #94a3b8 !important;
-}
-
-html.dark .text-slate-300 {
-  color: #cbd5e1 !important;
-}
-
-/* =========================================================
-   DARK MODE — INDIGO BRAND
-   ========================================================= */
-
-html.dark .bg-indigo-50 {
-  background-color: rgba(99, 102, 241, 0.12) !important;
-}
-
-html.dark .text-indigo-700 {
-  color: #a5b4fc !important;
-}
-
-html.dark .text-indigo-600 {
-  color: #818cf8 !important;
-}
-
-/* =========================================================
-   FORM FOUNDATION
-   ========================================================= */
 
 button,
 input,
@@ -182,41 +111,267 @@ select {
   font: inherit;
 }
 
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+::selection {
+  background: rgba(0, 174, 190, 0.22);
+  color: var(--pl-text);
+}
+
+/* =========================================================
+   TYPOGRAPHY
+   ========================================================= */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--pl-text);
+  letter-spacing: -0.02em;
+}
+
+p {
+  color: var(--pl-text-secondary);
+}
+
+small {
+  color: var(--pl-text-muted);
+}
+
+/* =========================================================
+   TEXT SURFACE
+   The important part:
+   soft surfaces behind secondary/write-up content
+   ========================================================= */
+
+.pl-text-surface {
+  background: var(--pl-surface-soft);
+  border: 1px solid var(--pl-border);
+  border-radius: 14px;
+  color: var(--pl-text-secondary);
+}
+
+.pl-text-surface-strong {
+  background: var(--pl-surface-muted);
+  border: 1px solid var(--pl-border);
+  border-radius: 14px;
+  color: var(--pl-text);
+}
+
+/* =========================================================
+   COMMON LIGHT SURFACES
+   ========================================================= */
+
+.bg-white {
+  background-color: var(--pl-surface) !important;
+}
+
+.bg-slate-50 {
+  background-color: var(--pl-bg) !important;
+}
+
+.bg-slate-100 {
+  background-color: var(--pl-surface-soft) !important;
+}
+
+.bg-slate-200 {
+  background-color: var(--pl-surface-muted) !important;
+}
+
+/* =========================================================
+   DARK SURFACES
+   ========================================================= */
+
+.dark .bg-white {
+  background-color: var(--pl-surface) !important;
+}
+
+.dark .bg-slate-50 {
+  background-color: var(--pl-bg) !important;
+}
+
+.dark .bg-slate-100 {
+  background-color: var(--pl-surface-soft) !important;
+}
+
+.dark .bg-slate-200 {
+  background-color: var(--pl-surface-muted) !important;
+}
+
+/* =========================================================
+   TEXT CONTRAST
+   ========================================================= */
+
+.text-slate-950,
+.text-slate-900 {
+  color: var(--pl-text) !important;
+}
+
+.text-slate-800 {
+  color: #263842 !important;
+}
+
+.text-slate-700 {
+  color: #354c57 !important;
+}
+
+.text-slate-600 {
+  color: var(--pl-text-secondary) !important;
+}
+
+.text-slate-500 {
+  color: var(--pl-text-muted) !important;
+}
+
+.text-slate-400 {
+  color: #71838c !important;
+}
+
+.dark .text-slate-950,
+.dark .text-slate-900 {
+  color: var(--pl-text) !important;
+}
+
+.dark .text-slate-800 {
+  color: #e5eef1 !important;
+}
+
+.dark .text-slate-700 {
+  color: #d2dfe3 !important;
+}
+
+.dark .text-slate-600 {
+  color: #c1d0d5 !important;
+}
+
+.dark .text-slate-500,
+.dark .text-slate-400 {
+  color: #91a6ae !important;
+}
+
+.dark .text-slate-300 {
+  color: #cbd9dd !important;
+}
+
+/* =========================================================
+   AQUA BRAND — replaces old indigo styling
+   ========================================================= */
+
+.bg-indigo-600 {
+  background-color: var(--pl-primary) !important;
+}
+
+.bg-indigo-700 {
+  background-color: var(--pl-primary-hover) !important;
+}
+
+.bg-indigo-50 {
+  background-color: var(--pl-accent-soft) !important;
+}
+
+.bg-indigo-100 {
+  background-color: var(--pl-surface-muted) !important;
+}
+
+.text-indigo-700,
+.text-indigo-600 {
+  color: var(--pl-primary-dark) !important;
+}
+
+.border-indigo-600,
+.border-indigo-500 {
+  border-color: var(--pl-primary) !important;
+}
+
+.ring-indigo-500,
+.ring-indigo-600 {
+  --tw-ring-color: var(--pl-primary) !important;
+}
+
+.dark .bg-indigo-600 {
+  background-color: var(--pl-primary) !important;
+}
+
+.dark .bg-indigo-700 {
+  background-color: var(--pl-primary-hover) !important;
+}
+
+.dark .bg-indigo-50 {
+  background-color: var(--pl-accent-soft) !important;
+}
+
+.dark .text-indigo-700,
+.dark .text-indigo-600 {
+  color: var(--pl-primary) !important;
+}
+
+/* =========================================================
+   BLUE BRAND COMPATIBILITY
+   ========================================================= */
+
+.text-blue-600,
+.text-blue-700 {
+  color: var(--pl-primary-dark) !important;
+}
+
+.bg-blue-50 {
+  background-color: var(--pl-accent-soft) !important;
+}
+
+.border-blue-200,
+.border-blue-300 {
+  border-color: var(--pl-border) !important;
+}
+
+.dark .text-blue-400,
+.dark .text-blue-500,
+.dark .text-blue-600 {
+  color: var(--pl-primary) !important;
+}
+
+.dark .bg-blue-900,
+.dark .bg-blue-950 {
+  background-color: var(--pl-surface-muted) !important;
+}
+
+/* =========================================================
+   CARDS
+   ========================================================= */
+
+.pl-card {
+  background: var(--pl-surface);
+  border: 1px solid var(--pl-border);
+  box-shadow: var(--pl-shadow);
+  border-radius: 18px;
+}
+
+.pl-card:hover {
+  box-shadow: var(--pl-shadow-hover);
+}
+
+/* =========================================================
+   INPUTS / FORMS
+   ========================================================= */
+
 input,
 textarea,
 select {
-  color: #0f172a;
+  color: var(--pl-text);
 }
 
 input::placeholder,
 textarea::placeholder {
-  color: #94a3b8;
+  color: var(--pl-text-muted);
 }
 
-html.dark input,
-html.dark textarea,
-html.dark select {
-  color: #f1f5f9;
-}
-
-html.dark input::placeholder,
-html.dark textarea::placeholder {
-  color: #64748b;
-}
-
-/* =========================================================
-   INTERACTION
-   ========================================================= */
-
-button,
-a {
-  transition:
-    background-color 180ms ease,
-    border-color 180ms ease,
-    color 180ms ease,
-    box-shadow 180ms ease,
-    transform 180ms ease,
-    opacity 180ms ease;
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
 }
 
 /* =========================================================
@@ -228,352 +383,180 @@ a:focus-visible,
 input:focus-visible,
 textarea:focus-visible,
 select:focus-visible {
-  outline: 2px solid #6366f1;
+  outline: 3px solid rgba(0, 174, 190, 0.22);
   outline-offset: 2px;
 }
 
 /* =========================================================
-   SELECTION
+   AQUA GRADIENT
    ========================================================= */
 
-::selection {
-  background: rgba(99, 102, 241, 0.18);
-  color: inherit;
+.pl-gradient {
+  background: var(--pl-gradient);
 }
 
 /* =========================================================
-   IMAGES
+   SUBTLE AQUA GLOW
    ========================================================= */
 
-img {
-  max-width: 100%;
+.pl-aqua-glow {
+  box-shadow:
+    0 0 0 1px rgba(0, 174, 190, 0.08),
+    0 14px 40px rgba(0, 174, 190, 0.12);
+}
+
+.dark .pl-aqua-glow {
+  box-shadow:
+    0 0 0 1px rgba(67, 212, 223, 0.12),
+    0 14px 40px rgba(0, 174, 190, 0.14);
+}
+
+/* =========================================================
+   STATUS COLORS
+   Keep these semantic instead of turning everything aqua.
+   ========================================================= */
+
+.text-emerald-600,
+.text-emerald-700 {
+  color: #16845d !important;
+}
+
+.bg-emerald-50 {
+  background-color: #e8f7f0 !important;
+}
+
+.dark .text-emerald-400 {
+  color: #63d6a5 !important;
+}
+
+.dark .bg-emerald-950 {
+  background-color: #123127 !important;
+}
+
+.text-amber-600,
+.text-amber-700 {
+  color: #a56b00 !important;
+}
+
+.bg-amber-50 {
+  background-color: #fff7df !important;
+}
+
+.dark .text-amber-400 {
+  color: #f2c56b !important;
+}
+
+.dark .bg-amber-950 {
+  background-color: #342914 !important;
+}
+
+.text-red-600,
+.text-red-700 {
+  color: #c43f4b !important;
+}
+
+.bg-red-50 {
+  background-color: #fff0f1 !important;
+}
+
+.dark .text-red-400 {
+  color: #ff858f !important;
+}
+
+.dark .bg-red-950 {
+  background-color: #35191d !important;
+}
+
+/* =========================================================
+   BORDERS
+   ========================================================= */
+
+.border-slate-100,
+.border-slate-200 {
+  border-color: var(--pl-border) !important;
+}
+
+.border-slate-300 {
+  border-color: var(--pl-border-strong) !important;
+}
+
+.dark .border-slate-700,
+.dark .border-slate-800 {
+  border-color: var(--pl-border) !important;
+}
+
+.dark .border-slate-600 {
+  border-color: var(--pl-border-strong) !important;
 }
 
 /* =========================================================
    SCROLLBAR
    ========================================================= */
 
-* {
-  scrollbar-width: thin;
-  scrollbar-color: #cbd5e1 transparent;
-}
-
-html.dark * {
-  scrollbar-color: #475569 transparent;
-}
-
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 9px;
+  height: 9px;
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: var(--pl-bg);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: #b9cbd0;
   border-radius: 999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: #8faeb6;
 }
 
-html.dark ::-webkit-scrollbar-thumb {
-  background: #475569;
+.dark ::-webkit-scrollbar-thumb {
+  background: #34515b;
 }
 
-html.dark ::-webkit-scrollbar-thumb:hover {
-  background: #64748b;
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #466a75;
 }
+
 /* =========================================================
-   PEERLINK SESSION HUB — AMAKA STANDARD
+   SMOOTH THEME TRANSITION
    ========================================================= */
 
-.session-hub-page {
-  padding-bottom: 3rem;
-}
-
-.session-hub-page > section {
+html,
+body,
+button,
+input,
+textarea,
+select,
+div,
+section,
+article,
+nav,
+aside {
   transition:
-    background-color 200ms ease,
-    border-color 200ms ease,
-    box-shadow 200ms ease,
-    transform 200ms ease;
-}
-
-/* Main cards */
-.session-hub-page > section:not(.session-hub-classroom) {
-  position: relative;
-}
-
-/* Session cards become more refined */
-.session-hub-page > section:not(.session-hub-classroom) {
-  border-radius: 1.75rem;
-}
-
-/* Better card depth in light mode */
-@media (min-width: 768px) {
-  .session-hub-page > section:not(.session-hub-classroom) {
-    box-shadow:
-      0 8px 30px rgba(15, 23, 42, 0.045);
-  }
-}
-
-/* Dark-mode depth */
-html.dark .session-hub-page > section:not(.session-hub-classroom) {
-  box-shadow:
-    0 12px 35px rgba(0, 0, 0, 0.18);
-}
-
-/* Session Hub page links */
-.session-hub-page > a:first-child {
-  transition:
-    color 180ms ease,
-    transform 180ms ease;
-}
-
-.session-hub-page > a:first-child:hover {
-  transform: translateX(-2px);
-}
-
-/* Headings */
-.session-hub-page h1,
-.session-hub-page h2,
-.session-hub-page h3 {
-  letter-spacing: -0.025em;
-}
-
-/* Better muted copy */
-html.dark .session-hub-page p.text-slate-500,
-html.dark .session-hub-page p.text-slate-400 {
-  color: #94a3b8 !important;
-}
-
-/* Better form fields */
-html.dark .session-hub-page input,
-html.dark .session-hub-page textarea,
-html.dark .session-hub-page select {
-  background-color: #172033 !important;
-  border-color: #334155 !important;
-  color: #f8fafc !important;
-}
-
-html.dark .session-hub-page input::placeholder,
-html.dark .session-hub-page textarea::placeholder {
-  color: #718096 !important;
-}
-
-/* Better dashed upload area */
-html.dark .session-hub-page .border-dashed {
-  border-color: #475569 !important;
-}
-
-/* Session status cards */
-html.dark .session-hub-page .bg-emerald-50 {
-  background-color: rgba(16, 185, 129, 0.09) !important;
-}
-
-html.dark .session-hub-page .bg-indigo-50 {
-  background-color: rgba(99, 102, 241, 0.12) !important;
-}
-
-/* Prevent the live classroom from being affected by
-   normal page card styling */
-.session-hub-classroom {
-  border-radius: 0 !important;
-  box-shadow: none !important;
-}
-/* =========================================================
-   PEERLINK SESSION HUB
-   AMAKA STANDARD UI
-   ========================================================= */
-
-.session-hub-shell {
-  padding-bottom: 3rem;
-}
-
-/* Main page cards */
-
-.session-hub-shell > section {
-  border-radius: 1.75rem;
-  transition:
-    background-color 200ms ease,
-    border-color 200ms ease,
-    box-shadow 200ms ease,
-    transform 200ms ease;
-}
-
-/* Refined light-mode depth */
-
-.session-hub-shell > section:not(.session-hub-classroom) {
-  box-shadow:
-    0 8px 30px rgba(15, 23, 42, 0.045);
-}
-
-/* Dark-mode page */
-
-html.dark .session-hub-shell {
-  color: #f8fafc;
-}
-
-html.dark .session-hub-shell > section:not(.session-hub-classroom) {
-  box-shadow:
-    0 12px 35px rgba(0, 0, 0, 0.18);
-}
-
-/* Make the page header feel more premium */
-
-.session-hub-shell > section:first-of-type h1 {
-  letter-spacing: -0.035em;
-}
-
-/* Back link */
-
-.session-hub-shell > a {
-  transition:
-    color 180ms ease,
-    transform 180ms ease;
-}
-
-.session-hub-shell > a:hover {
-  transform: translateX(-2px);
-}
-
-/* Light-mode cards */
-
-.session-hub-shell .bg-white {
-  box-shadow:
-    0 4px 18px rgba(15, 23, 42, 0.025);
-}
-
-/* Dark-mode surfaces */
-
-html.dark .session-hub-shell .bg-white {
-  background-color: #1e293b !important;
-}
-
-html.dark .session-hub-shell .bg-slate-50 {
-  background-color: #172033 !important;
-}
-
-html.dark .session-hub-shell .bg-slate-100 {
-  background-color: #243044 !important;
-}
-
-/* Dark-mode borders */
-
-html.dark .session-hub-shell .border-slate-100 {
-  border-color: #263449 !important;
-}
-
-html.dark .session-hub-shell .border-slate-200 {
-  border-color: #334155 !important;
-}
-
-/* Dark-mode form fields */
-
-html.dark .session-hub-shell input,
-html.dark .session-hub-shell textarea,
-html.dark .session-hub-shell select {
-  background-color: #172033 !important;
-  border-color: #334155 !important;
-  color: #f8fafc !important;
-}
-
-html.dark .session-hub-shell input::placeholder,
-html.dark .session-hub-shell textarea::placeholder {
-  color: #718096 !important;
-}
-
-/* Selected meeting option */
-
-html.dark .session-hub-shell .border-indigo-600.bg-indigo-50 {
-  background-color: rgba(99, 102, 241, 0.14) !important;
-  border-color: #818cf8 !important;
-}
-
-/* Indigo information panels */
-
-html.dark .session-hub-shell .bg-indigo-50 {
-  background-color: rgba(99, 102, 241, 0.11) !important;
-}
-
-/* Emerald status panels */
-
-html.dark .session-hub-shell .bg-emerald-50 {
-  background-color: rgba(16, 185, 129, 0.09) !important;
-}
-
-html.dark .session-hub-shell .text-emerald-700 {
-  color: #6ee7b7 !important;
-}
-
-html.dark .session-hub-shell .text-emerald-800 {
-  color: #a7f3d0 !important;
-}
-
-/* Better resource upload area */
-
-html.dark .session-hub-shell .border-dashed {
-  border-color: #475569 !important;
-}
-
-html.dark .session-hub-shell .border-dashed.bg-slate-50 {
-  background-color: #172033 !important;
-}
-
-/* Better cards for notes/resources */
-
-.session-hub-shell article,
-.session-hub-shell [class*="rounded-2xl"] {
-  transition:
-    border-color 180ms ease,
     background-color 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease,
     box-shadow 180ms ease;
 }
 
-/* Improve hover feel */
-
-.session-hub-shell article:hover {
-  box-shadow:
-    0 8px 24px rgba(15, 23, 42, 0.05);
-}
-
-html.dark .session-hub-shell article:hover {
-  box-shadow:
-    0 10px 28px rgba(0, 0, 0, 0.16);
-}
-
 /* =========================================================
-   LIVE CLASSROOM
-   Keep this intentionally dark and separate
+   SESSION HUB / VIDEO AREAS
    ========================================================= */
 
-.session-hub-classroom {
-  border-radius: 0 !important;
-  box-shadow: none !important;
+.session-shell {
+  background: var(--pl-bg);
+  color: var(--pl-text);
 }
 
-/* =========================================================
-   MOBILE REFINEMENT
-   ========================================================= */
+.session-card {
+  background: var(--pl-surface);
+  border: 1px solid var(--pl-border);
+  box-shadow: var(--pl-shadow);
+}
 
-@media (max-width: 640px) {
-  .session-hub-shell {
-    padding-bottom: 2rem;
-  }
-
-  .session-hub-shell > section {
-    border-radius: 1.4rem;
-  }
-
-  .session-hub-shell h1 {
-    font-size: 2rem;
-  }
-
-  .session-hub-shell h2 {
-    font-size: 1.15rem;
-  }
+.session-muted {
+  background: var(--pl-surface-soft);
+  color: var(--pl-text-secondary);
 }
